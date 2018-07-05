@@ -6,6 +6,7 @@ const morgan = require('morgan');
 
 const { PORT, CLIENT_ORIGIN } = require('./config');
 const { dbConnect } = require('./db-mongoose');
+const { router: plotsRouter } = require('routers/plots-router');
 // const {dbConnect} = require('./db-knex');
 
 const app = express();
@@ -43,6 +44,8 @@ app.get('/api/cheeses', (req, res) => {
       "Yorkshire Blue"
   ]);
 });
+
+app.get('/api/plots', plotsRouter);
 
 function runServer(port = PORT) {
   const server = app
