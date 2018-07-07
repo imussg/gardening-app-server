@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const plotSchema = new mongoose.Schema({
 	name: { type: String, required: true },
+	gardenId: { type: mongoose.Schema.Types.ObjectId, ref: 'Garden', required: true},
 	veggies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Veggie'}]
 });
 

@@ -1,12 +1,17 @@
 'use strict';
 
 const express = require('express');
+const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
 
+mongoose.Promise = global.Promise;
+
 const { PORT, CLIENT_ORIGIN } = require('./config');
 const { dbConnect } = require('./db-mongoose');
-const { router: plotsRouter } = require('routers/plots-router');
+
+const gardensRouter = require('./routers/garden');
+// const plotsRouter = require('./routers/plot');
 // const {dbConnect} = require('./db-knex');
 
 const app = express();
@@ -23,29 +28,32 @@ app.use(
   })
 );
 
-app.get('/api/cheeses', (req, res) => {
-  res.json([
-      "Bath Blue",
-      "Barkham Blue",
-      "Buxton Blue",
-      "Cheshire Blue",
-      "Devon Blue",
-      "Dorset Blue Vinney",
-      "Dovedale",
-      "Exmoor Blue",
-      "Harbourne Blue",
-      "Lanark Blue",
-      "Lymeswold",
-      "Oxford Blue",
-      "Shropshire Blue",
-      "Stichelton",
-      "Stilton",
-      "Blue Wensleydale",
-      "Yorkshire Blue"
-  ]);
-});
+app.use(express.json());
 
-app.get('/api/plots', plotsRouter);
+app.use('/api/gardens', gardensRouter);
+// app.use('/api/plots', plotsRouter);
+
+// app.get('/api/cheeses', (req, res) => {
+//   res.json([
+//       "Bath Blue",
+//       "Barkham Blue",
+//       "Buxton Blue",
+//       "Cheshire Blue",
+//       "Devon Blue",
+//       "Dorset Blue Vinney",
+//       "Dovedale",
+//       "Exmoor Blue",
+//       "Harbourne Blue",
+//       "Lanark Blue",
+//       "Lymeswold",
+//       "Oxford Blue",
+//       "Shropshire Blue",
+//       "Stichelton",
+//       "Stilton",
+//       "Blue Wensleydale",
+//       "Yorkshire Blue"
+//   ]);
+// });
 
 function runServer(port = PORT) {
   const server = app

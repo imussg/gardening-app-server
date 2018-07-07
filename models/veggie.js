@@ -2,10 +2,11 @@
 
 const mongoose = require('mongoose');
 
-veggieSchema = new mongoose.Schema({
+const veggieSchema = new mongoose.Schema({
 	name: { type: String, required: true },
 	condition: { type: String },
-	picture: { type: mongoose.Schema.Types.ObjectId, ref: 'Picture' }
+	pictureUrl: { type: String },
+	pictureAlt: { type: String }
 });
 
 veggieSchema.set('timestamps', true);
@@ -14,7 +15,7 @@ veggieSchema.set('toObject', {
 	virtuals: true,
 	versionKey: false,
 	transform: (doc, ret) => {
-		delete: ret._id;
+		delete ret._id;
 	}
 });
 
