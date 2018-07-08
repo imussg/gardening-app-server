@@ -36,8 +36,8 @@ router.get('/:id', (req, res, next) => {
 		})
 		.catch(err => {
 			next(err);
-		})
-})
+		});
+});
 
 router.post('/', (req, res, next) => {
 	
@@ -59,7 +59,65 @@ router.post('/', (req, res, next) => {
 		})
 		.catch(err => {
 			next(err);
+		});
+});
+
+router.put('/:id', (req, res, next) => {
+
+	const { id } = req.body;
+	const { name, plots = [] } = req.body;
+
+	if (!mongoose.Types.ObjectId.isValid(id)) {
+		const err = new Error('The `id` is not valid');
+		err.status = 400;
+		return next(err);
+	}
+
+	if (name === '') {
+		const err = new Error('Missing `name` in request body');
+		err.status = 400;
+		return next(err);
+	}
+
+	if (plots) {
+	    const badIds = plots.map((plot) => !mongoose.Types.ObjectId.isValid(plot));
+	    if (badIds.length) {
+			const err = new Error('The tags `id` is not valid');
+			err.status = 400;
+			return next(err);
+	    }
+	}
+
+	const newGarden = { name, plots };
+	Garden.findByIdAndUpdate(id, newGarden, { new: true })
+		.then(result => {
+			if(result) {
+				res.json(result);
+			} else {
+				next();
+			}
 		})
+		.catch(err => {
+			next(err);
+		});
+});
+
+router.delete('/:id', (req, res, next) => {
+
+	const { id } = req.params;
+	if (!mongoose.Types.ObjectId.isValid(id)) {
+	    const err = new Error('The `id` is not valid');
+	    err.status = 400;
+	    return next(err);
+	}
+
+	Garden.findByIdAndRemove(id)
+		.then(() => {
+			res.sendStatus(204);
+		})
+		.catch(err => {
+			next(err);
+		});
 });
 
 module.exports = router;
