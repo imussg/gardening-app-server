@@ -31,6 +31,7 @@ app.use(
 app.use(express.json());
 
 app.use('/api/gardens', gardensRouter);
+app.use('/api/plot', plotsRouter);
 // app.use('/api/plots', plotsRouter);
 
 // app.get('/api/cheeses', (req, res) => {
