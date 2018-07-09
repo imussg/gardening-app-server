@@ -1,0 +1,26 @@
+[
+	{
+	    "veggies": ["6b3fb7e2142ec330ec76f52c", "6b3fb7e2142ec330ec76f52b", "6b3fb7e2142ec330ec76f52a"],
+	    "name": "Fence",
+	    "gardenId": "5b3fb7e2142ec330ec76f52b",
+	    "createdAt": "2018-07-09T18:38:00.767Z",
+	    "updatedAt": "2018-07-09T18:38:00.767Z",
+	    "_id": "4b3fb7e2142ec330ec76f52a"
+	},
+	{
+		"veggies": ["6b3fb7e2142ec330ec76f53e", "6b3fb7e2142ec330ec76f52e", "6b3fb7e2142ec330ec76f52d"],
+	    "name": "By the Swing",
+	    "gardenId": "5b3fb7e2142ec330ec76f52b",
+	    "createdAt": "2018-07-09T18:38:00.767Z",
+	    "updatedAt": "2018-07-09T18:38:00.767Z",
+	    "_id": "5b3fb7e2142ec330ec76f52a"
+	},
+	{
+		"veggies": ["6b3fb7e2142ec330ec76f55e", "6b3fb7e2142ec330ec76f54e"],
+	    "name": "Front",
+	    "gardenId": "5b3fb7e2142ec330ec76f52b",
+	    "createdAt": "2018-07-09T18:38:00.767Z",
+	    "updatedAt": "2018-07-09T18:38:00.767Z",
+	    "_id": "6b3fb7e2142ec330ec76f52a"
+	}
+]

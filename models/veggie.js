@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const veggieSchema = new mongoose.Schema({
 	name: { type: String, required: true },
+	plotId: { type: mongoose.Schema.Types.ObjectId, ref: 'Plot'},
 	condition: { type: String },
 	pictureUrl: { type: String },
 	pictureAlt: { type: String }

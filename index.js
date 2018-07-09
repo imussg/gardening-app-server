@@ -11,7 +11,8 @@ const { PORT, CLIENT_ORIGIN } = require('./config');
 const { dbConnect } = require('./db-mongoose');
 
 const gardensRouter = require('./routers/garden');
-// const plotsRouter = require('./routers/plot');
+const plotsRouter = require('./routers/plot');
+const veggiesRouter = require('./routers/veggie');
 // const {dbConnect} = require('./db-knex');
 
 const app = express();
@@ -31,8 +32,8 @@ app.use(
 app.use(express.json());
 
 app.use('/api/gardens', gardensRouter);
-app.use('/api/plot', plotsRouter);
-// app.use('/api/plots', plotsRouter);
+app.use('/api/plots', plotsRouter);
+app.use('/api/veggies', veggiesRouter);
 
 // app.get('/api/cheeses', (req, res) => {
 //   res.json([

@@ -4,14 +4,14 @@ const mongoose = require('mongoose');
 
 const plotSchema = new mongoose.Schema({
 	name: { type: String, required: true },
-	gardenId: { type: mongoose.Schema.Types.ObjectId, ref: 'Garden', required: true},
+	gardenId: { type: mongoose.Schema.Types.ObjectId, ref: 'Garden'},
 	veggies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Veggie'}]
 });
 
 plotSchema.set('timestamps', true);
 
 plotSchema.set('toObject', {
-	vituals: true,
+	virtuals: true,
 	versionKey: false,
 	transform: (doc, ret) => {
 		delete ret._id;
