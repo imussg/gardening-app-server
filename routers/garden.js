@@ -10,20 +10,15 @@ const Veggie = require('../models/veggie');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-	// const { searchTerm } = req.query;
-	// if(searchTerm) {
-	// 	searchTerm = searchTerm.trim().toLowerCase();
-	// 	Garden.find({ name: searchTerm })
-	// 		.populate('plots')
-	// 		.then(results => {
-	// 			res.json(results);
-	// 		})
-	// 		.catch(err => {
-	// 			next(err);
-	// 		});
-	// } else {
+
 	Garden.find()
-		.populate('plots')
+		.populate({
+			path: 'plots',
+			populate: {
+				path: 'veggies',
+				model: 'Veggie'
+			}
+		})
 		.sort({ updatedAt: 'desc' })
 		.then(results => {
 			res.json(results);
@@ -31,7 +26,6 @@ router.get('/', (req, res, next) => {
 		.catch(err => {
 			next(err);
 		});
-	// }
 });
 
 router.get('/:id', (req, res, next) => {
@@ -41,7 +35,11 @@ router.get('/:id', (req, res, next) => {
 	Garden.findById(id)
 		.populate({
 			path: 'plots',
-			match: { gardenId: mongoose.Types.ObjectId(id) }
+			model: 'Plot',
+			populate: {
+				path: 'veggies',
+				model: 'Veggie'
+			}
 		})
 		.then(results => {
 			res.json(results);
@@ -92,8 +90,7 @@ router.put('/:id', (req, res, next) => {
 	}
 
 	const newGarden = {
-		name,
-		plots
+		name
 	};
 	Garden.findByIdAndUpdate(id, newGarden, {new: true})
 		.then(result => {

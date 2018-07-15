@@ -1,11 +1,11 @@
 'use strict';
-
+ 
 const mongoose = require('mongoose');
 
 const plotSchema = new mongoose.Schema({
 	name: { type: String, required: true },
-	gardenId: { type: mongoose.Schema.Types.ObjectId, ref: 'Garden'},
-	veggies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Veggie'}]
+	veggies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Veggie'}],
+	gardenId: { type: mongoose.Schema.Types.ObjectId, ref: 'Garden'}
 });
 
 plotSchema.set('timestamps', true);

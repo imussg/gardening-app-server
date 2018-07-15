@@ -11,18 +11,8 @@ const router = express.Router();
 
 router.get('/', (req, res, next) => {
 
-	// const { gardenId } = req.query;
-	// if(gardenId) {
-	// 	Plot.find({ gardenId: gardenId })
-	// 		.then(results => {
-	// 			res.json(results);
-	// 		})
-	// 		.catch(err => {
-	// 			next(err);
-	// 		});
-	// } else {
 	Plot.find()
-		.populate('gardenId')
+		.populate('veggies')
 		.sort({ updatedAt: 'desc' })
 		.then(results => {
 			res.json(results);
@@ -30,7 +20,6 @@ router.get('/', (req, res, next) => {
 		.catch(err => {
 			next(err);
 		});
-	// }
 });
 
 router.get('/:id', (req, res, next) => {
@@ -38,7 +27,7 @@ router.get('/:id', (req, res, next) => {
 	const { id } = req.params;
 
 	Plot.findById(id)
-		.populate('gardenId')
+		.populate('veggies')
 		.sort({ updatedAt: 'desc' })
 		.then(results => {
 			res.json(results);
@@ -77,6 +66,9 @@ router.post('/', (req, res, next) => {
 			return garden.save();
 		})
 		.then(result => {
+			return Plot.findById(plotId);
+		})
+		.then(result => {
 			res.status(201).json(result);
 	    })
 		.catch(err => {
@@ -86,6 +78,7 @@ router.post('/', (req, res, next) => {
 
 router.put('/:id', (req, res, next) => {
 
+	console.log(req.body);
 	const { id } = req.params;
 	const { name, gardenId=null, veggies=[] } = req.body;
 
@@ -102,9 +95,7 @@ router.put('/:id', (req, res, next) => {
 	}
 
 	const newPlot = {
-		name,
-		gardenId,
-		veggies
+		name
 	};
 	Plot.findByIdAndUpdate(id, newPlot, {new: true})
 		.then(result => {
