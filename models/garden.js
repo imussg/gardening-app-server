@@ -1,5 +1,5 @@
 'use strict';
-
+ 
 const mongoose = require('mongoose');
 
 const gardenSchema = new mongoose.Schema({
