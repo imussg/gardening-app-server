@@ -12,7 +12,7 @@
     "heroku": "node index.js",
     "travis": "npm run mocha"
   },
-  "author": "Joe Turner <jturner@thinkful.com>",
+  "author": "Steven Imus",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.4",
