@@ -46,8 +46,8 @@ router.get('/:id', (req, res, next) => {
 		})
 		.catch(err => {
 			next(err);
-		})
-})
+		});
+});
 
 router.post('/', (req, res, next) => {
 	
@@ -74,8 +74,13 @@ router.post('/', (req, res, next) => {
 
 router.put('/:id', (req, res, next) => {
 
+<<<<<<< HEAD
 	const { id } = req.params;
 	const { name, plots=[] } = req.body;
+=======
+	const { id } = req.body;
+	const { name, plots = [] } = req.body;
+>>>>>>> 718dc2ee5bcb90377ccbd1fe9f2529f920a64156
 
 	if (!mongoose.Types.ObjectId.isValid(id)) {
 		const err = new Error('The `id` is not valid');
@@ -89,10 +94,24 @@ router.put('/:id', (req, res, next) => {
 		return next(err);
 	}
 
+<<<<<<< HEAD
 	const newGarden = {
 		name
 	};
 	Garden.findByIdAndUpdate(id, newGarden, {new: true})
+=======
+	if (plots) {
+	    const badIds = plots.map((plot) => !mongoose.Types.ObjectId.isValid(plot));
+	    if (badIds.length) {
+			const err = new Error('The tags `id` is not valid');
+			err.status = 400;
+			return next(err);
+	    }
+	}
+
+	const newGarden = { name, plots };
+	Garden.findByIdAndUpdate(id, newGarden, { new: true })
+>>>>>>> 718dc2ee5bcb90377ccbd1fe9f2529f920a64156
 		.then(result => {
 			if(result) {
 				res.json(result);
@@ -108,11 +127,18 @@ router.put('/:id', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
 
 	const { id } = req.params;
+<<<<<<< HEAD
 
 	if(!mongoose.Types.ObjectId.isValid(id)) {
 		const err = new Error('The `id` is not valid');
 		err.status = 400;
 		return next(err);
+=======
+	if (!mongoose.Types.ObjectId.isValid(id)) {
+	    const err = new Error('The `id` is not valid');
+	    err.status = 400;
+	    return next(err);
+>>>>>>> 718dc2ee5bcb90377ccbd1fe9f2529f920a64156
 	}
 
 	Garden.findByIdAndRemove(id)
