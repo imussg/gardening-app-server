@@ -13,10 +13,7 @@ const { dbConnect } = require('./db-mongoose');
 
 const gardensRouter = require('./routers/garden');
 const plotsRouter = require('./routers/plot');
-<<<<<<< HEAD
 const veggiesRouter = require('./routers/veggie');
-=======
->>>>>>> 718dc2ee5bcb90377ccbd1fe9f2529f920a64156
 // const {dbConnect} = require('./db-knex');
 
 const app = express();
@@ -37,32 +34,7 @@ app.use(express.json());
 
 app.use('/api/gardens', gardensRouter);
 app.use('/api/plots', plotsRouter);
-<<<<<<< HEAD
 app.use('/api/veggies', veggiesRouter);
-=======
-
-// app.get('/api/cheeses', (req, res) => {
-//   res.json([
-//       "Bath Blue",
-//       "Barkham Blue",
-//       "Buxton Blue",
-//       "Cheshire Blue",
-//       "Devon Blue",
-//       "Dorset Blue Vinney",
-//       "Dovedale",
-//       "Exmoor Blue",
-//       "Harbourne Blue",
-//       "Lanark Blue",
-//       "Lymeswold",
-//       "Oxford Blue",
-//       "Shropshire Blue",
-//       "Stichelton",
-//       "Stilton",
-//       "Blue Wensleydale",
-//       "Yorkshire Blue"
-//   ]);
-// });
->>>>>>> 718dc2ee5bcb90377ccbd1fe9f2529f920a64156
 
 function runServer(port = PORT) {
   const server = app
