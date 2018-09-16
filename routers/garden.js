@@ -14,6 +14,7 @@ router.get('/', (req, res, next) => {
 	return Garden.find()
 		// .sort({ updatedAt: 'desc' })
 		.then(results => {
+			console.log(results);
 			res.json(results);
 		})
 		.catch(err => {
