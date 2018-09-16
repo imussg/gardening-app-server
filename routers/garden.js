@@ -11,15 +11,8 @@ const router = express.Router();
 
 router.get('/', (req, res, next) => {
 
-	Garden.find()
-		.populate({
-			path: 'plots',
-			populate: {
-				path: 'veggies',
-				model: 'Veggie'
-			}
-		})
-		.sort({ updatedAt: 'desc' })
+	return Garden.find()
+		// .sort({ updatedAt: 'desc' })
 		.then(results => {
 			res.json(results);
 		})
@@ -30,7 +23,17 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
 
-	const { id } = req.params;
+	const id = req.params.id;
+	console.log(`id: ${id}`);
+
+	if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+		res.status(422).json({
+	        code: 422,
+	        reason: 'ValidationError',
+	        message: `Missing field: ${id}`,
+			location: id
+		});
+  	}
 
 	Garden.findById(id)
 		.populate({
@@ -41,8 +44,9 @@ router.get('/:id', (req, res, next) => {
 				model: 'Veggie'
 			}
 		})
-		.then(results => {
-			res.json(results);
+		.then(garden => {
+			console.log(garden);
+			res.json(garden);
 		})
 		.catch(err => {
 			next(err);

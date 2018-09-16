@@ -2,7 +2,7 @@
  
 const mongoose = require('mongoose');
 
-const gardenSchema = new mongoose.Schema({
+const gardenSchema = mongoose.Schema({
 	name: { type: String, required: true },
 	plots: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Plot' }]
 });

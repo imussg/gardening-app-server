@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 
-const veggieSchema = new mongoose.Schema({
+const veggieSchema = mongoose.Schema({
 	name: { type: String, required: true },
 	plotId: { type: mongoose.Schema.Types.ObjectId, ref: 'Plot'},
 	condition: { type: String },

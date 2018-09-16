@@ -15,6 +15,7 @@ router.get('/', (req, res, next) => {
 		.populate('veggies')
 		.sort({ updatedAt: 'desc' })
 	const { gardenId } = req.query;
+	console.log(gardenId);
 	
 	gardenId ? Plot.find({gardenId: gardenId}) : Plot.find()
 		.populate('veggies')
