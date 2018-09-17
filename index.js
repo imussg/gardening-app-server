@@ -17,6 +17,7 @@ const veggiesRouter = require('./routers/veggie');
 // const {dbConnect} = require('./db-knex');
 
 const app = express();
+app.use(express.json());
 
 app.use(
   morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev', {
@@ -39,8 +40,6 @@ app.use((req, res, next) => {
 //     origin: CLIENT_ORIGIN
 //   })
 // );
-
-app.use(express.json());
 
 app.use('/api/gardens', gardensRouter);
 app.use('/api/plots', plotsRouter);
