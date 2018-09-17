@@ -15,6 +15,7 @@ router.get('/', (req, res, next) => {
 		.populate('plots')
 		.sort({ updatedAt: 'desc' })
 		.then(results => {
+			console.log(results);
 			res.json(results);
 		})
 		.catch(err => {
