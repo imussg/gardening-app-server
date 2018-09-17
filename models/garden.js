@@ -1,7 +1,6 @@
 'use strict';
  
 const mongoose = require('mongoose');
-const Plot = require('./plot');
 
 const gardenSchema = mongoose.Schema({
 	name: { type: String, required: true },
