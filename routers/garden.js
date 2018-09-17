@@ -12,7 +12,8 @@ const router = express.Router();
 router.get('/', (req, res, next) => {
 
 	return Garden.find()
-		// .sort({ updatedAt: 'desc' })
+		.populate('plots')
+		.sort({ updatedAt: 'desc' })
 		.then(results => {
 			res.json(results);
 		})
@@ -44,6 +45,7 @@ router.get('/:id', (req, res, next) => {
 				model: 'Veggie'
 			}
 		})
+		.sort({ updatedAt: 'desc' })
 		.then(garden => {
 			console.log(garden);
 			res.json(garden);
@@ -55,7 +57,7 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
 	
-	const { name } = req.body;
+	const { name, plots } = req.body;
 
 	if(!name) {
 		const err = new Error('Missing `name` in request body');
@@ -63,7 +65,9 @@ router.post('/', (req, res, next) => {
 	    return next(err);
 	}
 
-	const newGarden = { name };
+	const newGarden = {
+		name,
+		plots: [...plots]};
 
 	Garden.create(newGarden)
 		.then(result => {

@@ -1,6 +1,7 @@
 'use strict';
  
 const mongoose = require('mongoose');
+const Plot = require('./plot');
 
 const gardenSchema = mongoose.Schema({
 	name: { type: String, required: true },
@@ -16,5 +17,13 @@ gardenSchema.set('toObject', {
 		delete ret._id;
 	}
 });
+
+gardenSchema.methods.serialize = function() {
+	return {
+		id: this.id,
+		name: this.name || '',
+		plots: [...this.plots] || []
+	};
+}
 
 module.exports = mongoose.model('Garden', gardenSchema);
