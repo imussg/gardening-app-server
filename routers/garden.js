@@ -12,7 +12,14 @@ const router = express.Router();
 router.get('/', (req, res, next) => {
 
 	return Garden.find()
-		.populate('plots')
+		.populate({
+			path: 'plots',
+			model: 'Plot',
+			populate: {
+				path: 'veggies',
+				model: 'Veggie'
+			}
+		})
 		.sort({ updatedAt: 'desc' })
 		.then(results => {
 			console.log(results);
