@@ -29,7 +29,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
 
-	const { id } = req.params;
+	const id = req.params.id;
 
 	Plot.findById(id)
 		.populate('veggies')
@@ -82,8 +82,10 @@ router.post('/', (req, res, next) => {
 
 router.put('/:id', (req, res, next) => {
 
-	const { id } = req.params;
-	const { name, gardenId, veggies = [] } = req.body;
+	const id = req.params.id;
+	// const { veggies = [], name, gardenId } = req.body;
+	const newPlot = { ...req.body };
+	console.log(req.body);
 
 	if (!mongoose.Types.ObjectId.isValid(id)) {
 		const err = new Error('The `id` is not valid');
@@ -91,13 +93,13 @@ router.put('/:id', (req, res, next) => {
 		return next(err);
 	}
 
-	if (name === '') {
+	if (newPlot.name === '') {
 		const err = new Error('Missing `name` in request body');
 		err.status = 400;
 		return next(err);
 	}
 
-	if (veggies) {
+	if (newPlot.veggies) {
 	    const badIds = plots.map((plot) => !mongoose.Types.ObjectId.isValid(plot));
 	    if (badIds.length) {
 			const err = new Error('The tags `id` is not valid');
@@ -106,20 +108,19 @@ router.put('/:id', (req, res, next) => {
 	    }
 	}
 
-	if (!mongoose.Types.ObjectId.isValid(gardenId)) {
-		const err = new Error('The `gardenId` is not valid');
-		err.status = 400;
-		return next(err);
-	}
+	// if (!mongoose.Types.ObjectId.isValid(newPlot.gardenId)) {
+	// 	const err = new Error('The `gardenId` is not valid');
+	// 	err.status = 400;
+	// 	return next(err);
+	// }
 
-	const newPlot = { name, gardenId, veggies };
 	Plot.findByIdAndUpdate(id, newPlot, { new: true })
 		.then(result => {
-			if(result) {
-				res.json(result);
-			} else {
-				next();
-			}
+			// if(result) {
+			res.json(result);
+			// } else {
+			// 	next();
+			// }
 		})
 		.catch(err => {
 			next(err);
