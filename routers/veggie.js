@@ -92,9 +92,8 @@ router.put('/:id', (req, res, next) => {
 		return next(err);
 	}
 
-	const newVeggie = { name, plotId, condition, pictureUrl, pictureAlt };
-	let veggieId;
-
+	const newVeggie = { id, name, plotId, condition, pictureUrl, pictureAlt };
+	
 	Veggie.findByIdAndUpdate(id, newVeggie, {new: true})
 		.then(result => {
 			if(result) {
