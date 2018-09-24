@@ -64,7 +64,7 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
 	
-	const { name, plots } = req.body;
+	const { name, plots=[] } = req.body;
 
 	if(!name) {
 		const err = new Error('Missing `name` in request body');
@@ -74,7 +74,8 @@ router.post('/', (req, res, next) => {
 
 	const newGarden = {
 		name,
-		plots: [...plots]};
+		plots
+	};
 
 	Garden.create(newGarden)
 		.then(result => {
