@@ -117,22 +117,32 @@ router.delete('/:id', (req, res, next) => {
 	}
 
 	let plotId;
-	Veggie.findById(id)
-		.then((veggie) => {
-			plotId = veggie.plotId;
-			Plot.findById(plotId);
-		})
-		.then((plot) => {
-			const veggies = plot.veggies.filter(veggie => veggie.plotId !== plotId);
-			plot.veggies = [...plot.veggies];
-			plot.save();
-		})
+	Veggie.findByIdAndRemove(id)
 		.then(() => {
 			res.sendStatus(204);
 		})
 		.catch(err => {
 			next(err);
 		});
+	// Veggie.findById(id)
+	// 	.then((veggie) => {
+	// 		plotId = veggie.plotId;
+	// 		Plot.findById(plotId);
+	// 	})
+	// 	.then((plot) => {
+	// 		const veggies = plot.veggies.filter(veggie => veggie.plotId !== plotId);
+	// 		plot.veggies = [...plot.veggies];
+	// 		Promise.all([
+	// 			plot.save(),
+	// 			Veggie.findByIdAndRemove(id)
+	// 		]);
+	// 	})
+	// 	.then(() => {
+	// 		res.sendStatus(204);
+	// 	})
+	// 	.catch(err => {
+	// 		next(err);
+	// 	});
 });
 
 module.exports = router;
