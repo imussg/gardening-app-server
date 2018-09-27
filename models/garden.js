@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 const gardenSchema = mongoose.Schema({
-	name: { type: String, required: true },
+	name: { type: String, required: true, unique: true },
 	plots: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Plot' }]
 });
 
